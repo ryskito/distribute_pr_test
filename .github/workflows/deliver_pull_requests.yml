@@ -3,11 +3,9 @@ on:
     tags:
       - 'v*'
 
-name: Create Release
-
 jobs:
   build:
-    name: Create Release
+    name: リリースタグを作成したら配布PRを自動生成する
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
