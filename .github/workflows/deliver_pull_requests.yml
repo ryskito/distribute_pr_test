@@ -23,6 +23,6 @@ jobs:
           hub pull-request -h master -b stage01 -m "[配布PR] ${{ steps.get_version.outputs.VERSION }} -> stage01"
           hub pull-request -h master -b stage02 -m "[配布PR] ${{ steps.get_version.outputs.VERSION }} -> stage02"
           hub pull-request -h master -b stage03 -m "[配布PR] ${{ steps.get_version.outputs.VERSION }} -> stage03"
-          hub pull-request -h master -b stage03 -m "[配布PR] ${{ steps.get_version.outputs.VERSION }} -> stage04"
+          hub pull-request -h master -b stage04 -m "[配布PR] ${{ steps.get_version.outputs.VERSION }} -> stage04"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
