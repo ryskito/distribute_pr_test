@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: Get the version
         id: get_version
@@ -23,6 +21,6 @@ jobs:
         shell: bash
         run: |
           hub push
-          hub pull-request -b stage01 -m "${{ steps.get_version.outputs.VERSION }} → stage01"
+          hub pull-request -h master -b stage01 -m "${{ steps.get_version.outputs.VERSION }} → stage01"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
