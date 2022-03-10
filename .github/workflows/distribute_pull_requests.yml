@@ -1,0 +1,26 @@
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: リリースタグを作成したら配布PRを自動生成する
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+
+      - name: Create pull request
+        shell: bash
+        run: |
+          hub pull-request -h master -b stage01 -m "[配布PR] ${{ steps.get_version.outputs.VERSION }} -> stage01"
+          hub pull-request -h master -b stage02 -m "[配布PR] ${{ steps.get_version.outputs.VERSION }} -> stage02"
+          hub pull-request -h master -b stage03 -m "[配布PR] ${{ steps.get_version.outputs.VERSION }} -> stage03"
+          hub pull-request -h master -b stage04 -m "[配布PR] ${{ steps.get_version.outputs.VERSION }} -> stage04"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
