@@ -1,0 +1,25 @@
+name: Auto Approve and Merge
+
+on:
+  pull_request:
+    branches: [ develop, stage01, stage02, stage03, stage04 ]
+  workflow_dispatch:
+
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Auto Approve
+        id: auto_approve
+        uses: hmarr/auto-approve-action@v2
+        if: github.event.pull_request.user.login == 'ryskito'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto Merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge ${{ steps.auto_approve.outputs.pull-request-url }} --merge
