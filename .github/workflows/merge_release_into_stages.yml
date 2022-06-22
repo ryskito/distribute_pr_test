@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Auto Merge
-        if: github.event.review.state == 'approved' #&& github.event.pull_request.user.login == 'ryskito'
+        if: github.event.review.state == 'approved' && contains(github.event.pull_request.title, '配布PR')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge ${{ github.ref_name }} --merge
+        run: gh pr merge ${{ github.event.pull_request.number }} --merge
