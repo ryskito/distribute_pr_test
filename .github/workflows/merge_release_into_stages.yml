@@ -16,4 +16,4 @@ jobs:
         if: github.event.review.state == 'approved' #&& github.event.pull_request.user.login == 'ryskito'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge ${{ github.ref_name }} --merge
+        run: gh pr merge ${{ github.event.pull_request.number }} --merge
