@@ -1,4 +1,4 @@
-name: Auto Approve and Merge
+name: Auto Approve
 
 on:
   pull_request:
@@ -18,8 +18,3 @@ jobs:
         if: github.event.pull_request.user.login == 'ryskito'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Auto Merge
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge ${{ steps.auto_approve.outputs.pull-request-url }} --merge
