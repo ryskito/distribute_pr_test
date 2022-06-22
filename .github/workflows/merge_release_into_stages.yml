@@ -14,4 +14,6 @@ jobs:
 
       - name: Auto Merge
         if: github.event.review.state == 'approved' && contains(github.event.pull_request.title, '配布PR')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr merge ${{ github.event.pull_request.number }} --merge
