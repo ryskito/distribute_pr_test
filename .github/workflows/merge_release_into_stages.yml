@@ -3,6 +3,7 @@ name: Auto Merge
 on:
   pull_request_review:
     types: [submitted]
+    branches: [ stage01, stage02, stage03, stage04 ]
 
 jobs:
   auto_merge:
@@ -12,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Auto Merge
-        if: github.event.review.state == 'approved' && github.event.pull_request.user.login == 'github-actions'
+        if: github.event.review.state == 'approved' #&& github.event.pull_request.user.login == 'ryskito'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr merge ${{ github.ref_name }} --merge
